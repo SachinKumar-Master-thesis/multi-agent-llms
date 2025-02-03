@@ -1,0 +1,30 @@
+repos:
+  # - repo: https://github.com/fastai/nbdev/
+  #   rev: 2.3.11
+  #   hooks:
+  #     - id: nbdev_clean
+  #       name: nbdev_clean
+  #       entry: nbdev_clean
+  #       description: "Clean metadata from notebooks to avoid merge conflicts"
+  #       language: python
+  #       always_run: true
+  #       pass_filenames: false
+  #     - id: nbdev_export
+  #       name: nbdev_export
+  #       entry: nbdev_export
+  #       description: "Export notebooks to modules and build modidx"
+
+  - repo: https://github.com/nbQA-dev/nbQA/
+    rev: 1.6.4
+    hooks:
+      - id: nbqa-check-ast
+        files: ^nbs/
+        types:
+          - jupyter
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.6.1
+    hooks:
+      - id: nbstripout
+        files: ^nbs/
+        types:
+          - jupyter

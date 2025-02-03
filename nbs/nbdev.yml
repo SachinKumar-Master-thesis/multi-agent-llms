@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "multi-agent-llms"
+  site-url: "https://SachinKumar-Master-thesis.github.io/multi-agent-llms"
+  description: ""
+  repo-branch: dev
+  repo-url: "https://github.com/SachinKumar-Master-thesis/multi-agent-llms"
