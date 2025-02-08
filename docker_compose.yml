@@ -1,0 +1,34 @@
+version: "3"
+services:
+    gpttest:
+        image: sachin/ts-gpt-test
+        stdin_open: true 
+        tty: true
+        environment:
+            - OPENSEARCH_HOST=${OPENSEARCH_HOST}
+            - OPENSEARCH_PORT=${OPENSEARCH_PORT}
+            - OPENSEARCH_USER=${OPENSEARCH_USER}
+            - OPENSEARCH_PASSWORD=${OPENSEARCH_PASSWORD}
+            - INDEXER_HOST=${INDEXER_HOST}
+            - INDEXER_USER=${INDEXER_USER}
+            - INDEXER_PASSWORD=${INDEXER_PASSWORD}
+            - OPENAI_API_TYPE=${OPENAI_API_TYPE}
+            - OPENAI_API_BASE=${OPENAI_API_BASE}
+            - OPENAI_API_KEY=${OPENAI_API_KEY}
+            - RUN_CONFIG_ADDRESS=${RUN_CONFIG_ADDRESS}
+            - LOGS_ADDRESS=${LOGS_ADDRESS}
+            - LOG_CONFIG_ADDRESS=${LOG_CONFIG_ADDRESS}
+            - CITY=${CITY}
+            - CHAINLIT_AUTH_SECRET=${CHAINLIT_AUTH_SECRET}
+            - CHAINLIT_USERNAME=${CHAINLIT_USERNAME}
+            - CHAINLIT_PASSWORD=${CHAINLIT_PASSWORD}
+        ports:
+            - 8888:8888/tcp #jupyter
+            - 8866:8866/tcp #voila
+            - 8000:8000/tcp #chainlit
+            - 9200:9200/tcp #opensearch
+        volumes:
+            #- .env:/workspace/.env
+            - ./configs:/workspace/configs
+# volumes:
+#     configs:

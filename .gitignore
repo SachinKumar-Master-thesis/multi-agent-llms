@@ -175,8 +175,8 @@ bin-release/
 # should NOT be excluded as they contain compiler settings and other important
 # information for Eclipse / Flash Builder.
 
-/multi-agent-llms/applications/.chainlit
-/multi-agent-llms/nbs/examples
+applications/.chainlit
+nbs/examples
 /multi-agent-llms/sandbox/mlruns
-/multi-agent-llms/nbs/mlruns
-/multi-agent-llms/nbs/examples/mlruns
+nbs/mlruns
+nbs/examples/mlruns
