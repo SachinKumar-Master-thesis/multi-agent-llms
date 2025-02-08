@@ -112,19 +112,19 @@ class GetUIIndexSchemas(object):
     Args:
         object (_type_): _description_
     """
-    def __init__(self, host:str, user:str, password:str, run_config:dict):
+    def __init__(self, host:str, user:str, password:str, selected_events:list):
         """_summary_
 
         Args:
             host (str): host address
             user (str): user name
             password (str): password
-            run_config (dict): run config with the information to be fetched and the columns to be renamed and dropped
+            selected_events (list): list of the events to be processed
         """
         self.user = user
         self.password = password
         self.host = host
-        self.run_config = run_config
+        self.selected_events = selected_events
     
     def get_schemas(self):
         response = requests.get(self.host, auth=HTTPBasicAuth(self.user, self.password))
@@ -146,36 +146,18 @@ class GetUIIndexSchemas(object):
         return schema_dict
     
     
-    def process_schema_(self, schema_dict:dict, run_config)->dict:
+    def process_schema_(self, schema_dict:dict)->dict:
         """
-        Process the schema as per the given run config
+        Select the required events
         """
-        
         # delete the not required 
-        schema_dict = {k:v for k, v in schema_dict.items() if k in run_config.keys()}
-        
-        #update the index by deleting the columns from the index based on the user query
-        for k, v in run_config.items():
-            delete_columns = v['drop_columns']
-            if delete_columns is not None:
-                for col in delete_columns:
-                    if col == 'esGeoLocation':
-                        continue
-                    del schema_dict[k][col]
-        
-        # rename columns to harmonize the data across the events
-        for k, v in run_config.items():
-            rename_columns = v['rename_columns']
-            if rename_columns is not None:
-                for k1, v1 in rename_columns.items():
-                    schema_dict[k][v1] = schema_dict[k][k1]
-                    del schema_dict[k][k1]
+        schema_dict = {k:v for k, v in schema_dict.items() if k in self.selected_events}
         return schema_dict
     
     def run(self):
         response = self.get_schemas()
         schema_dict = self.restructrue_schemas(response)
-        schema_dict = self.process_schema_(schema_dict=schema_dict, run_config=self.run_config)
+        schema_dict = self.process_schema_(schema_dict=schema_dict)
         return schema_dict
 
 # %% ../../nbs/utils/opensearch_utils.ipynb 5

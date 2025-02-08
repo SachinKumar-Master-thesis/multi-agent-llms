@@ -92,9 +92,10 @@ response_synthesizer = (
     "User query in plain language is provided in the key user_query"
     "You will be provided with a context object, which will contain a list of indexes \\n"
     "The results from opensearch query are provided in the key results.\\n"
-    "Taking the user query and result into account, derive insights expaning the results. Dont just state the results."
-    "If there are multiple insights provide them in a sequential manner with bullet points"
-    "if possible present the results in a tabular format."
+    "Taking the user query and result into account, derive insights expaning the results. Dont just state the results.\\n"
+    "If there are multiple insights provide them in a sequential manner winbdevth bullet points.\\n"
+    "if possible present the results in a tabular format.\\n"
+    "If the user query explicitly asks for a plot. Return a json string of the plot which can be loaded by plotly.io.\\n"
 
     '##context##'
     "user_query: {query_str}\\n"
@@ -153,7 +154,6 @@ class ResponseSynthesizer(BaseModel):
     plots:str=Field(default='', descriptions="list of plotly plot-able strings. Populate only if the user asks for it")
 
 # %% ../../nbs/utils/agent_prompts.ipynb 14
-from pydantic import BaseModel, Field
 class AgentPromtInformation(BaseModel):
     agent_name:str = Field(description='Agent Name')
     agent_role:str = Field(description='Agent description')
